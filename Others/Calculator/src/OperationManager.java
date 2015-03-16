@@ -22,13 +22,14 @@ public class OperationManager {
 		Sum(operator);
 		Difference(operator);
 		Product(operator);
+		Quocient(operator);
 		
 		return result;
 	}
 	
 	public void Difference(String operator)
 	{
-		String thisOperator = "-";
+		String thisOperator = Operations.Difference;
 		
 		if(operator.equals("init"))
 			operations.add(thisOperator);
@@ -39,7 +40,7 @@ public class OperationManager {
 	
 	private void Sum(String operator)
 	{
-		String thisOperator = "+";
+		String thisOperator = Operations.Sum;
 		
 		if(operator.equals("init"))
 			operations.add(thisOperator);
@@ -50,12 +51,23 @@ public class OperationManager {
 	
 	private void Product(String operator)
 	{
-		String thisOperator = "x";
+		String thisOperator = Operations.Product;
 		
 		if(operator.equals("init"))
 			operations.add(thisOperator);
 		
 		if(operator.equals(thisOperator))
 			result =  keep * value;
+	}	
+	
+	private void Quocient(String operator)
+	{
+		String thisOperator = Operations.Quocient;
+		
+		if(operator.equals("init"))
+			operations.add(thisOperator);
+		
+		if(operator.equals(thisOperator))
+			result =  keep / value;
 	}	
 }

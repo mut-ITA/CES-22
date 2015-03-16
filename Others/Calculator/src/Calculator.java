@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,6 +32,10 @@ public class Calculator implements ICalculator
 		{
 			value = operationManager.Operate(keep, value, operation);
 			keep = 0;
+		}
+		else if (input.equals("."))
+		{
+			operation = Operations.Dot;
 		}
 		else
 		{
