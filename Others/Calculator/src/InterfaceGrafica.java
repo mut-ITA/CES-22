@@ -12,7 +12,7 @@ public class InterfaceGrafica extends JFrame implements IUserInterface{
 									 //2 - 7 8 9 + -; 3 - 4 5 6 * /; 4 - 1 2 3 +- Raiz; 5 - 0 . =
 	
 	JButton[] Botoes = new JButton[19]; //Numero de butoes
-	String[] NomedosButoes = { "7", "8", "9", "+", "C", "4", "5", "6", "-", "*", "1", "2", "3", "+-","V","/", ".","=","0"};
+	String[] NomedosBotoes = { "7", "8", "9", "+", "C", "4", "5", "6", "-", "*", "1", "2", "3", "+-","V","/", ".","=","0"};
 	JTextArea Visor = new JTextArea();	
 	
 	InterfaceGrafica (){
@@ -38,9 +38,9 @@ public class InterfaceGrafica extends JFrame implements IUserInterface{
 		//Inicializando os butões
 		for(int i = 0; i < 19; i++) {
 		    Botoes[i] = new JButton();
-		    Botoes[i].setText(NomedosButoes[i]);
+		    Botoes[i].setText(NomedosBotoes[i]);
 		    Botoes[i].setFont(new Font("Times new Roman", Font.BOLD, 14));
-		    //Botoes[i].addActionListener(this);
+		    Botoes[i].addActionListener(new ButtonListener());
 		}
 		
 		//Ajustando o Visor
@@ -75,58 +75,52 @@ public class InterfaceGrafica extends JFrame implements IUserInterface{
 			add(Paineis[4]);
 			
 		setVisible(true);
-						
-		
-
-
-
 	}
 	
-	private String MeuInput(ActionEvent ae){
-		 if (ae.getSource() == button[0]){
-			 return "7";
-			 }
-		 if (ae.getSource() == button[1]){
-			 return "8";
-			 }
-		 if (ae.getSource() == button[2]){
-			 return "9";
-			 }
-		 if (ae.getSource() == button[3]){
-			 return Operation.Sum;
-			 }
-		 if (ae.getSource() == button[4]){
-			 return "7";
-			 }
-		 if (ae.getSource() == button[5]){
-			 return "7";
-			 }
-		 if (ae.getSource() == button[6]){
-			 return "7";
-			 }
-		 if (ae.getSource() == button[7]){
-			 return "7";
-			 }
-		 if (ae.getSource() == button[8]){
-			 return "7";
-			 }
-		 if (ae.getSource() == button[9]){
-			 return "7";
-			 }
-			 	 		
-	}
+    private String input = "";
+    private boolean newPress = false;
 	
 	public String Input(){
-		return MeuInput;		
+		double i = 0;
 		
+		//Para a thread paralela ser bloqueada(Nao faz sentido mas funciona)
+		while(!newPress)
+			{
+			i ++;
+			if (i > 100) i = 0;
+			System.out.println(String.valueOf(i));
+			}	
+		
+		newPress = false;
+		if (input == "")
+			return input;
+		String returnInput = input;
+		input = "";
+		return returnInput;
+	
 	}
 
 	public final void setDesign() {
 	    try {
 	        UIManager.setLookAndFeel(
 	                "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-	    } catch(Exception e) {   
+	    } 
+	    catch(Exception e) 
+	    {   
 	    }
+	}
+	
+	public class ButtonListener implements ActionListener{
+		
+		public void actionPerformed(ActionEvent ae){
+			newPress = true;
+			input = ae.getActionCommand();
+		}
+
+	}
+	
+	public void Output(String output) {		
+		Visor.setText(output);		
 	}
 
 
