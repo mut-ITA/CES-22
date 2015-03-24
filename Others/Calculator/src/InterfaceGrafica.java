@@ -8,11 +8,13 @@ import javax.swing.*;
 
 public class InterfaceGrafica extends JFrame implements IUserInterface{
 
-	JPanel[] Paineis = new JPanel[5]; //Criando os paines que terão os botoes. 1 - Input e output
+	JPanel[] Paineis = new JPanel[5]; //Criando os paines que terï¿½o os botoes. 1 - Input e output
 									 //2 - 7 8 9 + -; 3 - 4 5 6 * /; 4 - 1 2 3 +- Raiz; 5 - 0 . =
 	
 	JButton[] Botoes = new JButton[19]; //Numero de butoes
-	String[] NomedosBotoes = { "7", "8", "9", "+", "C", "4", "5", "6", "-", "*", "1", "2", "3", "+-","V","/", ".","=","0"};
+	String[] NomedosBotoes = { "7", "8", "9", Operations.Sum, Operations.Clear,
+							   "4", "5", "6", Operations.Difference, Operations.Product,
+							   "1", "2", "3", Operations.Opposite, Operations.SquareRoot, Operations.Quocient, ".","=","0"};
 	JTextArea Visor = new JTextArea();	
 	
 	InterfaceGrafica (){
@@ -35,7 +37,7 @@ public class InterfaceGrafica extends JFrame implements IUserInterface{
 		for(int i = 1; i < 5; i++)
 			Paineis[i].setLayout(new FlowLayout(FlowLayout.CENTER, 1, 1));
 	
-		//Inicializando os butões
+		//Inicializando os butï¿½es
 		for(int i = 0; i < 19; i++) {
 		    Botoes[i] = new JButton();
 		    Botoes[i].setText(NomedosBotoes[i]);
@@ -80,15 +82,16 @@ public class InterfaceGrafica extends JFrame implements IUserInterface{
     private String input = "";
     private boolean newPress = false;
 	
-	public String Input(){
-		double i = 0;
+	public String Input(){		
 		
-		//Para a thread paralela ser bloqueada(Nao faz sentido mas funciona)
 		while(!newPress)
 			{
-			i ++;
-			if (i > 100) i = 0;
-			System.out.println(String.valueOf(i));
+				try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			}	
 		
 		newPress = false;
