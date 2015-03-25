@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javax.swing.JTextField"/>
+<fullyQualifiedTypeName name="Teste"/>
+<fullyQualifiedTypeName name="javax.naming.directory.SearchControls"/>
+<fullyQualifiedTypeName name="Interface"/>
+</qualifiedTypeNameHistroy>
