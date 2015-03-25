@@ -12,8 +12,7 @@ public class Main
 		List<Metatag> metatags = new ArrayList();
 		metatags.add(new Metatag("Name1", "Value1"));
 		metatags.add(new Metatag("Name2", "Ilharco"));
-		List<String> comments = new ArrayList();
-		comments.add("Such a nice comment");	
+		String comments = "Such a nice comment";	
 		
 		Hyperlink a = new Hyperlink("Aco", "www.Ilharco.com", metatags, comments);
 		

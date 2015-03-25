@@ -12,14 +12,14 @@ public class Hyperlink
 	private List<Metatag> _metatags;
 	public List<Metatag> GetMetatags() { return _metatags; }
 	
-	private List<String> _comments;
-	public List<String> GetComments() { return _comments; }
+	private String _comments;
+	public String GetComments() { return _comments; }
 	
 	private String _searchTags;
 	public String GetSearchTags() { return _searchTags; }
 	
 	
-	public Hyperlink(String name, String url, List<Metatag> metatags, List<String> comments)
+	public Hyperlink(String name, String url, List<Metatag> metatags, String comments)
 	{
 		_name = name;
 		_url = url;
@@ -49,10 +49,7 @@ public class Hyperlink
 		
 		System.out.print("Comments = ");
 		
-		for ( String c : _comments)
-		{
-			System.out.print(c + " ");
-		}
+		System.out.print(_comments + " ");
 		
 		System.out.println();		
 	}	

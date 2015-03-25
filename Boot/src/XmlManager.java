@@ -181,13 +181,10 @@ public class XmlManager implements IManager {
 		}
 		
 		//Add comments
-		for(String c : hyperlink.GetComments())
-		{
-			Element comment = _doc.createElement("Comment");
-			comment.appendChild(_doc.createTextNode(c));
-			
-			hyperlinkXML.appendChild(comment);			
-		}
+		Element comment = _doc.createElement("Comment");
+		comment.appendChild(_doc.createTextNode(hyperlink.GetComments()));
+		
+		hyperlinkXML.appendChild(comment);	
 
 		mainTag.appendChild(hyperlinkXML);
 		
@@ -210,7 +207,7 @@ public class XmlManager implements IManager {
 			String name = "";
 			String url = "";
 			List<Metatag> metatags = new ArrayList<Metatag>();
-			List<String> comments = new ArrayList<String>();
+			String comments = "";
 			
 			for (int j = 0; j < hyperlinkChild.getLength(); j++)
 			{
@@ -238,7 +235,7 @@ public class XmlManager implements IManager {
 					metatags.add(new Metatag(metatagName, metatagDescription));
 				}
 				
-				if("Comment".equals(elem.getNodeName()))  comments.add(elem.getTextContent());
+				if("Comment".equals(elem.getNodeName()))  comments = elem.getTextContent();
 			}
 			
 			hyperlinkList.add(new Hyperlink(name, url, metatags, comments));
