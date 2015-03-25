@@ -4,4 +4,6 @@
 <fullyQualifiedTypeName name="Teste"/>
 <fullyQualifiedTypeName name="javax.naming.directory.SearchControls"/>
 <fullyQualifiedTypeName name="Interface"/>
+<fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
+<fullyQualifiedTypeName name="javax.swing.ScrollPaneConstants"/>
 </qualifiedTypeNameHistroy>

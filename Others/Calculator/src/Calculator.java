@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,14 +29,20 @@ public class Calculator implements ICalculator
 			value = 0;
 			operation = input;			
 		}
-		else if (input.equals("="))
+		else if (input.equals(Operations.Equals))
 		{
 			value = operationManager.Operate(keep, value, operation);
 			keep = 0;
 		}
-		else if (input.equals("."))
+		else if (input.equals(Operations.Dot))
 		{
 			operation = Operations.Dot;
+		}
+		else if (input.equals(Operations.Clear))
+		{
+			value = 0;
+			keep = 0;
+			operation = "";			
 		}
 		else
 		{
