@@ -321,7 +321,6 @@ public class Interface {
 		JButton AddbtnAdd = new JButton("Add Hyperlink");
 		AddbtnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AddClear();
 			}
 		});
 		AddbtnAdd.setBounds(609, 371, 138, 35);
@@ -340,7 +339,7 @@ public class Interface {
 		btnAddMetatags = new JButton("Add Meta-tags");
 		btnAddMetatags.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AddClearMetatag();
+				
 			}
 		});
 		btnAddMetatags.setBounds(72, 326, 157, 25);
@@ -348,34 +347,7 @@ public class Interface {
 	}
 		//Creating button commands
 		
-		//Clearing Add texts
-		void AddClear () {
-			AddName.setText(null);
-			AddUrl.setText(null);
-			AddtextAreaComment1.setText(null);
-			AddtextDescription1.setText(null);
-			AddtextDescription2.setText(null);
-			AddtextDescription3.setText(null);
-			AddtextDescription4.setText(null);
-			AddtextName1.setText(null);
-			AddtextName2.setText(null);
-			AddtextName3.setText(null);
-			AddtextName4.setText(null);
-		}
-		
-		//Clearing Add Meta-tags
-		void AddClearMetatag (){
-			AddtextDescription1.setText(null);
-			AddtextDescription2.setText(null);
-			AddtextDescription3.setText(null);
-			AddtextDescription4.setText(null);
-			AddtextName1.setText(null);
-			AddtextName2.setText(null);
-			AddtextName3.setText(null);
-			AddtextName4.setText(null);
-		}
-		
-		public void Test(){}
+	
 		
 	}
 
