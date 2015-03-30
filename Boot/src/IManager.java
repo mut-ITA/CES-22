@@ -7,4 +7,5 @@ public interface IManager
 	void Add(Hyperlink hyperlink);
 	void Save();
 	void Edit(Hyperlink from, Hyperlink to);
+	void RemoveByName(String name);
 }

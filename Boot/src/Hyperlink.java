@@ -26,8 +26,9 @@ public class Hyperlink
 		_metatags = metatags;
 		_comments = comments;
 		
-		_searchTags = "";
+		_searchTags = " ";
 		_searchTags += name + " ";
+		_searchTags += url + " ";
 		
 		for(Metatag m : metatags)
 		{
