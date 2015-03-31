@@ -116,7 +116,7 @@ public class Interface {
 		frmBootProject.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				XmlManager.GetInstance().Save();
+				ManagerLocator.GetManager().Save();
 				frmBootProject.dispose();
 				System.exit(0);
 			}
@@ -225,7 +225,7 @@ public class Interface {
 				textField.setText(null);
 				Viewrow = new ArrayList<ViewPanel>();
 				countView = 0;
-				for(final Hyperlink h : XmlManager.GetInstance().Search(temp))
+				for(final Hyperlink h : ManagerLocator.GetManager().Search(temp))
 				{
 					int ji = 0;
 					ViewPanel row = new ViewPanel(h.GetName());
@@ -347,7 +347,7 @@ public class Interface {
 					
 				}
 				Hyperlink HyperLinkAdded = new Hyperlink(EditName.getText(),EditUrl.getText(),HyperLinkMetaTag,EdittextAreaComment1.getText());
-				XmlManager.GetInstance().Edit(Searched, HyperLinkAdded);
+				ManagerLocator.GetManager().Edit(Searched, HyperLinkAdded);
 				EditName.setText(null);
 				EditUrl.setText(null);
 				EdittextAreaComment1.setText(null);
@@ -389,7 +389,7 @@ public class Interface {
 					Editrows.remove(k);
 					
 				}
-				XmlManager.GetInstance().RemoveByName(Searched.GetName());
+				ManagerLocator.GetManager().RemoveByName(Searched.GetName());
 				EditName.setText(null);
 				EditUrl.setText(null);
 				EdittextAreaComment1.setText(null);
@@ -466,7 +466,7 @@ public class Interface {
 					
 				}
 				Hyperlink HyperLinkAdded = new Hyperlink(AddName.getText(),AddUrl.getText(),HyperLinkMetaTag,AddtextAreaComment1.getText());
-				XmlManager.GetInstance().Add(HyperLinkAdded);
+				ManagerLocator.GetManager().Add(HyperLinkAdded);
 				AddName.setText(null);
 				AddUrl.setText(null);
 				AddtextAreaComment1.setText(null);

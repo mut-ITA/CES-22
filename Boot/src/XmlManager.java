@@ -82,7 +82,7 @@ public class XmlManager implements IManager {
 			List<Hyperlink> removed = new ArrayList<Hyperlink>();
 			for(Hyperlink h : searchResults)
 			{
-				if(!(h.GetSearchTags().contains(" " + k + " "))) removed.add(h);
+				if(!(h.GetSearchTags().toLowerCase().contains(" " + k.toLowerCase() + " "))) removed.add(h);
 				System.out.print(h.GetName() + " ");				
 				
 			}
@@ -185,9 +185,14 @@ public class XmlManager implements IManager {
 		
 		//Add comments
 		Element comment = _doc.createElement("Comment");
-		comment.appendChild(_doc.createTextNode(hyperlink.GetComments()));
-		
+		comment.appendChild(_doc.createTextNode(hyperlink.GetComments()));	
 		hyperlinkXML.appendChild(comment);	
+		
+		//Add lastEdited
+		Element lastEdited = _doc.createElement("LastEdited");
+		lastEdited.appendChild(_doc.createTextNode(hyperlink.GetLastEdited()));
+		hyperlinkXML.appendChild(lastEdited);	
+		System.out.println(hyperlink.GetLastEdited());
 
 		mainTag.appendChild(hyperlinkXML);
 		
