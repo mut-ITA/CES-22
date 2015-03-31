@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 
 public class XmlManager implements IManager {
 
-	private static String _filepath= "file.xml";
+	private static String _filepath = "file.xml";
 	
 	private Document _doc;
 	
@@ -44,6 +44,8 @@ public class XmlManager implements IManager {
 	
 	private XmlManager(String filepath)
 	{
+		_filepath = filepath;
+		
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder;
 		try {
@@ -75,7 +77,7 @@ public class XmlManager implements IManager {
 		for(String k : keywordsList)
 		{
 			System.out.print(k + " : ");
-			List<Hyperlink> removed = new ArrayList();
+			List<Hyperlink> removed = new ArrayList<Hyperlink>();
 			for(Hyperlink h : searchResults)
 			{
 				if(!(h.GetSearchTags().contains(" " + k + " "))) removed.add(h);
@@ -102,7 +104,6 @@ public class XmlManager implements IManager {
 	private void RemoveByName(String name)
 	{
 		//Remove from XML
-		List<Hyperlink> hyperlinkList = new ArrayList<Hyperlink>();
 		Node rootNode = _doc.getElementsByTagName("Hyperlinks").item(0);
 		NodeList hyperlinkXMLs = _doc.getElementsByTagName("Hyperlink");
 		
