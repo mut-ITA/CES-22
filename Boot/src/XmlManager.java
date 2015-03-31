@@ -72,6 +72,8 @@ public class XmlManager implements IManager {
 	{
 		List<Hyperlink> searchResults = new ArrayList<Hyperlink>(_hyperlinkList);
 		
+		if(keywords.equals("")) return searchResults;
+		
 		String[] keywordsList = keywords.split(" ");
 		
 		for(String k : keywordsList)
@@ -101,7 +103,7 @@ public class XmlManager implements IManager {
 		AddNew(hyperlink);
 	}
 	
-	private void RemoveByName(String name)
+	public void RemoveByName(String name)
 	{
 		//Remove from XML
 		Node rootNode = _doc.getElementsByTagName("Hyperlinks").item(0);
