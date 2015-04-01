@@ -216,6 +216,7 @@ public class XmlManager implements IManager {
 			String url = "";
 			List<Metatag> metatags = new ArrayList<Metatag>();
 			String comments = "";
+			String lastEdited = "";
 			
 			for (int j = 0; j < hyperlinkChild.getLength(); j++)
 			{
@@ -244,9 +245,11 @@ public class XmlManager implements IManager {
 				}
 				
 				if("Comment".equals(elem.getNodeName()))  comments = elem.getTextContent();
+				
+				if("LastEdited".equals(elem.getNodeName())) lastEdited = elem.getTextContent();
 			}
 			
-			hyperlinkList.add(new Hyperlink(name, url, metatags, comments));
+			hyperlinkList.add(new Hyperlink(name, url, metatags, comments, lastEdited));
 		}		
 		
 		_hyperlinkList = hyperlinkList;

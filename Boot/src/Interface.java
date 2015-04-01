@@ -40,6 +40,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
 
 
@@ -112,6 +115,7 @@ public class Interface {
 	 */
 	private void initialize() {
 		frmBootProject = new JFrame();
+		frmBootProject.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Felipeh\\Downloads\\CES-22\\Boot\\490px-Magnifying_glass_icon.svg.png"));
 		frmBootProject.setResizable(false);
 		frmBootProject.addWindowListener(new WindowAdapter() {
 			@Override
@@ -217,7 +221,15 @@ public class Interface {
 		Editrows = new ArrayList<MetaTagPanel>();
 		countEdit = 0;
 		
+		final JLabel EditDate = new JLabel("");
+		EditDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		EditDate.setForeground(Color.RED);
+		EditDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		EditDate.setBounds(459, 342, 288, 16);
+		Edit.add(EditDate);
+		
 		JButton btnSearch = new JButton("Search");
+		btnSearch.setToolTipText("Just click Search to view the complete list");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//if(!textField.getText().equals("")){
@@ -225,16 +237,19 @@ public class Interface {
 				textField.setText(null);
 				Viewrow = new ArrayList<ViewPanel>();
 				countView = 0;
+				//Adding the rows to the View panel
 				for(final Hyperlink h : ManagerLocator.GetManager().Search(temp))
 				{
 					int ji = 0;
 					ViewPanel row = new ViewPanel(h.GetName());
 					Viewrow.add(row);
+					//View/Edit button
 					Viewrow.get(countView).getEditButton().addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							EditName.setText(h.GetName());
 							EditUrl.setText(h.GetUrl());
 							EdittextAreaComment1.setText(h.GetComments());
+							EditDate.setText("Last edited: " + h.GetLastEdited());
 							for (int j = 0; j < h.GetMetatags().size(); j++) {
 								int i = 0;
 								if (countEdit >= 1){
@@ -413,6 +428,36 @@ public class Interface {
 		btnRemove.setBounds(12, 371, 138, 35);
 		Edit.add(btnRemove);
 		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (int k = countEdit - 1; k >= 0; k--) {
+					editpanel.remove(Editrows.get(k));
+					Editrows.remove(k);
+				}
+				EditName.setText(null);
+				EditUrl.setText(null);
+				EdittextAreaComment1.setText(null);
+				EditscrollPane_2.repaint();
+				EditscrollPane_2.revalidate();
+				countEdit = 0;
+				if(countView != 0){
+					for (int k = countView - 1; k >= 0; k--) {
+						panel_1.remove(Viewrow.get(k));
+						Viewrow.remove(k);
+					}				
+				}
+				countView = 0;
+				SearchViewEdit.remove(View);
+				SearchViewEdit.remove(Edit);
+				SearchViewEdit.add(Search);
+				
+			}
+		});
+		btnBack.setBounds(459, 371, 138, 35);
+		Edit.add(btnBack);
+		
+		
 		JPanel Add = new MyAddPanel();
 		tabbedPane.addTab("Add", null, Add, null);
 		Add.setLayout(null);
@@ -458,6 +503,7 @@ public class Interface {
 		AddbtnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ArrayList<Metatag> HyperLinkMetaTag = new ArrayList<Metatag>();
+				//Storing MetaTags and clearing de MetaTags panel
 				for (int k = count - 1; k >= 0; k--) {
 					Metatag temp = new Metatag(rows.get(k).GetNameTextField(),rows.get(k).GetDescriptionTextField());
 					HyperLinkMetaTag.add(temp);
@@ -465,13 +511,16 @@ public class Interface {
 					rows.remove(k);
 					
 				}
+				//Adding the Hyperlink
 				Hyperlink HyperLinkAdded = new Hyperlink(AddName.getText(),AddUrl.getText(),HyperLinkMetaTag,AddtextAreaComment1.getText());
 				ManagerLocator.GetManager().Add(HyperLinkAdded);
+				//Clearing fields
 				AddName.setText(null);
 				AddUrl.setText(null);
 				AddtextAreaComment1.setText(null);
 				scrollPane_2.repaint();
 				scrollPane_2.revalidate();
+				//Reseting the count	
 				count = 0;				
 				
 			}
