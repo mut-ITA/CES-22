@@ -25,7 +25,7 @@ class InputHandler implements KeyListener
      * @param keyCode The key to check
      * @return Whether the key is pressed or not
      */
-    protected boolean isKeyDown(int keyCode)
+    public boolean isKeyDown(int keyCode)
     {
         if (keyCode > 0 && keyCode < 256)
         {

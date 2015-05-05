@@ -3,22 +3,15 @@ package ge;
 /**
  * Created by gustavo on 4/19/2015.
  */
-public abstract class GameObject
+public abstract class GameObject extends GameComponent
 {
-    protected Transform transform;
-    protected Sprite sprite;
-
-    protected GameObject()
-    {
-        GameEngine.Instance().AddGameObject(this);
-        transform = new Transform();
-        sprite = new Sprite();
-    }
+    //TODO: Add list of components
+	protected Transform Transform;
+    protected Sprite Sprite;
+    protected Collider<?> Collider;
 
     public abstract void Update();
-
-    protected void Destroy()
-    {
-        GameEngine.Instance().RemoveGameObject(this);
-    }
+    
+    public abstract void Initialize();
+    
 }
