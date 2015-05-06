@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -15,8 +16,9 @@ public class GameEngine extends JFrame
 {
 	final static public double FPS = 60;
 	
-	final static public int WINDOW_HEIGHT = 500;
-	final static public int WINDOW_WIDTH = 500;
+	final static public int WINDOW_WIDTH = 1280;
+	final static public int WINDOW_HEIGHT = 720;
+	
 	
 	public static double MS_PER_UPDATE(){ return 1/FPS; }
 
@@ -26,26 +28,26 @@ public class GameEngine extends JFrame
         if(_instance == null)
             _instance = new GameEngine();
         return _instance;
-    }
-    
+    }    
     
     private GameEngine()
     {
         setTitle("Game Tutorial");
-        setSize(WINDOW_HEIGHT, WINDOW_WIDTH);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
 
-    private List<GameComponent> _components = new ArrayList<GameComponent>();
-    public void AddGameComponent(GameComponent c)
+    private List<GameObject> _gameObjects = new ArrayList<GameObject>();
+    private List<GameObject> _markedForCreation = new ArrayList<GameObject>();
+    public void AddGameObject(GameObject go)
     {
-    	_components.add(c);
+    	_markedForCreation.add(go);
     }
-    public void RemoveGameComponent(GameComponent c)
+    private List<GameObject> _markedForRemoval = new ArrayList<GameObject>();
+    public void RemoveGameObject(GameObject go)
     {
-    	_components.remove(c);
+    	_markedForRemoval.add(go);
     }
 
     public InputHandler input = new InputHandler(this);
@@ -60,27 +62,49 @@ public class GameEngine extends JFrame
         Initialize();
         while (true)
         {
-
-            double currentTime = System.currentTimeMillis();
+            Debug.Call();
+            
+        	double currentTime = System.currentTimeMillis();
             double elapsedTime = currentTime - previousTime;
             totalTime += elapsedTime;
             previousTime = currentTime;
             lag += elapsedTime;
 
             HandleInput();
+            
+            CreateObjects();
 
             while (lag >= MS_PER_UPDATE())
-            {
-                Update();
-                lag -= MS_PER_UPDATE();
+            {         	
+            	Update();
+                lag -= MS_PER_UPDATE(); 
             }
-
+            
             Render(lag / MS_PER_UPDATE());
+            
+            DestroyObjects();
         }
 
     }
 
-    private void Initialize() 
+    private void CreateObjects() {
+    	for (GameObject go : _markedForCreation) 
+		{
+			_gameObjects.add(go);
+		}
+    	_markedForCreation =  new ArrayList<GameObject>();
+	}
+
+	private void DestroyObjects() 
+    {		
+		for (GameObject go : _markedForRemoval) 
+		{
+			_gameObjects.remove(go);
+		}
+		_markedForRemoval =  new ArrayList<GameObject>();
+	}
+
+	private void Initialize() 
     {
     	Scene.Instance().Load();	
 	}
@@ -88,16 +112,16 @@ public class GameEngine extends JFrame
 
 	private void Render(double interpolation) 
     {
-		Renderer.Instance().Render();
+		Renderer.Instance().Render(interpolation);
     }
 
 
     private void Update()
     {
-        for(GameComponent c : _components)
+    	Debug.Clear();
+    	for(GameObject go : _gameObjects)
         {
-        	//System.out.println("Updating " + c.getClass().toString());
-        	c.Update();
+        	go.BaseUpdate();
         }
     }
 

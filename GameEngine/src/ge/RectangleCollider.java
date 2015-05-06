@@ -4,26 +4,26 @@ public class RectangleCollider extends Collider<RectangleCollider>{
 
 	private double _height;
 	private double _width;
+	private double _baseHeight;
+	private double _baseWidth;
 	private double _angle;
 	
-	public RectangleCollider(Transform transform, double height, double width)
+	public RectangleCollider(double height, double width)
 	{		
 		SetHeight(height);
 		
 		SetWidth(width);
 		
-		_angle = transform.GetAngle();
-		
-		Init(transform);
+		_angle = Transform.GetAngle();
 	}
 	
 	public void SetHeight (double H)
 	{
 		if(H < 0){
-			_height = 0;
+			_baseHeight = 0;
 		}
 		else {
-			_height = H;
+			_baseHeight = H;
 		}
 	}	
 	public double GetHeight()
@@ -34,10 +34,10 @@ public class RectangleCollider extends Collider<RectangleCollider>{
 	public void SetWidth (double W)
 	{
 		if(W < 0){
-			_width = 0;
+			_baseWidth = 0;
 		}
 		else {
-			_width = W;
+			_baseWidth = W;
 		}
 	}	
 	public double GetWidth()
@@ -76,8 +76,8 @@ public class RectangleCollider extends Collider<RectangleCollider>{
 	
 	public void Update()
 	{
-		SetWidth(GetWidth() * GetTransform().Scale.x);
-		SetHeight(GetHeight() * GetTransform().Scale.y);
+		_width =  _baseWidth * AbsoluteTransform.Scale.x;
+		_height = _baseHeight * AbsoluteTransform.Scale.y;
 	}
 	
 }

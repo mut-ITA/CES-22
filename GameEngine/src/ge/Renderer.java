@@ -2,6 +2,7 @@ package ge;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,16 @@ public class Renderer
         return _instance;
     }
     
+    Insets insets;
+    
     Renderer()
     {
     	_graphics = GameEngine.Instance().getGraphics();
     	_current = new BufferedImage(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT, BufferedImage.TYPE_INT_RGB); 
     	_next = new BufferedImage(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT, BufferedImage.TYPE_INT_RGB); 
+    	insets = GameEngine.Instance().getInsets();
+    	GameEngine.Instance().setSize(insets.left + GameEngine.WINDOW_WIDTH + insets.right,
+    	                insets.top + GameEngine.WINDOW_HEIGHT + insets.bottom); 
     }
     
     private List<Sprite> _sprites = new ArrayList<Sprite>();
@@ -38,7 +44,7 @@ public class Renderer
     	_sprites.remove(s);
     }
     
-    public void Draw()
+    public void Draw(double interpolation)
     {
     	Graphics backBuffer = _next.getGraphics();
     	
@@ -47,7 +53,15 @@ public class Renderer
 		
     	for(Sprite s : _sprites)
     	{
-    		backBuffer.drawImage(s.LoadedImage, s.PositionX(), s.PositionY(), null);
+    		int drawX = (int)(s.AbsolutePositionX() + interpolation * s.AbsoluteVelocityX());
+    		int drawY = (int)(s.AbsolutePositionY() + interpolation * s.AbsoluteVelocityY());
+    		int width = (int)(s.LoadedImage.getWidth() * s.AbsoluteTransform.Scale.x);
+    		int height = (int)(s.LoadedImage.getHeight() * s.AbsoluteTransform.Scale.y);
+    		backBuffer.drawImage(s.LoadedImage, drawX - width/2,
+    				drawY - height/2, 
+    				width,
+    				height,
+    				null);
     	}
     	
     	Swap();
@@ -60,10 +74,10 @@ public class Renderer
     	_current = temp;    	
 	}
 
-	public void Render()
+	public void Render(double interpolation)
     {	
-		Draw();
-		_graphics.drawImage(_current, 0, 0, GameEngine.Instance());         
+		Draw(interpolation);
+		_graphics.drawImage(_current, insets.left, insets.top, GameEngine.Instance());         
     }
 
 }

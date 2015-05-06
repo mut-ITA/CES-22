@@ -13,22 +13,31 @@ public class Sprite extends GameComponent
 {
     public BufferedImage LoadedImage = null;
     
-    private Transform _transform;
     
-    public int PositionX()
+    public double AbsolutePositionX()
     {
-    	return (int)_transform.Position.x;
+    	return AbsoluteTransform.Position.x;
     }
     
-    public int PositionY()
+    public double AbsolutePositionY()
     {
-    	return (int)_transform.Position.y;
+    	return AbsoluteTransform.Position.y;
     }
     
-    public Sprite(Transform transform)
+    public double AbsoluteVelocityX()
     {
-    	Renderer.Instance().AddSprite(this);
-    	_transform = transform;
+    	return AbsoluteTransform.Velocity.x;
+    }
+    
+    public double AbsoluteVelocityY()
+    {
+    	return AbsoluteTransform.Velocity.y;
+    } 
+    
+    
+    public Sprite()
+    {    	
+    	Renderer.Instance().AddSprite(this);    	
     }
 
     public void Load(String filepath)
@@ -41,16 +50,15 @@ public class Sprite extends GameComponent
         {
         }
     }
-    
-    public void Update()
-    {
-    	
-    }
-    
-    @Override
-    public void Destroy()
-    {
-    	Renderer.Instance().RemoveSprite(this);
-    	super.Destroy();
-    }
+
+	public void Update() 
+	{
+		
+	}
+	
+	@Override
+	public void Destroy() {
+		Renderer.Instance().RemoveSprite(this);
+		super.Destroy();
+	}
 }

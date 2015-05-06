@@ -54,7 +54,6 @@ public class Vector2
         y /= Length();
         x *= size;
         y *= size;
-        
     }
 
     public Vector2 Normalized()
@@ -63,6 +62,17 @@ public class Vector2
         normalized.Normalize();
 
         return normalized;
+    }
+    
+    public double GetAngle()
+    {
+    	if(x==0 && y==0) return 0;
+    	
+    	double angle = Math.atan(y/x);
+    	while(angle > 2*Math.PI)	angle -= 2*Math.PI;
+    	while(angle < 0)	angle += 2*Math.PI;
+    	
+    	return angle;
     }
     
     /**
@@ -115,9 +125,10 @@ public class Vector2
     	return x * other.x + y * other.y;
     }    
     
-    public Vector2 ScalarMult(double scalar)
+    public void ScalarMult(double scalar)
     {
-    	return new Vector2(scalar*x, scalar*y);
+    	x = scalar*x;
+    	y = scalar*y;
     }
     
 }

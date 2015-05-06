@@ -3,7 +3,7 @@ package ge;
 /**
  * Created by gustavo on 4/19/2015.
  */
-public class Transform extends GameComponent
+public class Transform
 {
     public Vector2 Position; //Center of the transform    
     public Vector2 Scale;
@@ -45,25 +45,43 @@ public class Transform extends GameComponent
         Scale = new Vector2(1, 1);
     }
 
-    public Transform(Vector2 Position)
+    public Transform(Vector2 position)
     {
-        this.Position = Position;
+        this.Position = position;
         _angle = 0;
         Scale = new Vector2(1, 1);
     }
 
-    public Transform(Vector2 Position, double Angle)
+    public Transform(Vector2 position, double angle)
     {
-        this.Position = Position;
-        SetAngle(Angle);
+        this.Position = position;
+        SetAngle(angle);
         Scale = new Vector2(1, 1);
     }
 
-    public Transform(Vector2 Position, double Angle, Vector2 Scale)
+    public Transform(Vector2 position, double angle, Vector2 scale)
     {
-        this.Position = Position;
-        SetAngle(Angle);
-        this.Scale = Scale;
+        Position = position;
+        SetAngle(angle);
+        Scale = scale;
+    }
+    
+    public Transform(Vector2 position, double angle, Vector2 scale, Vector2 velocity)
+    {
+        Position = position;
+        SetAngle(angle);
+        Scale = scale;
+        Velocity = velocity;
+    }
+    
+    public static Transform Add(Transform a, Transform b)
+    {    	
+    	Vector2 position = Vector2.Add(a.Position, b.Position);
+        double angle = a.GetAngle() + b.GetAngle();
+        Vector2 scale = new Vector2(a.Scale.x * b.Scale.x, a.Scale.y * b.Scale.y);
+        Vector2 velocity = Vector2.Add(a.Velocity, b.Velocity);
+    	
+    	return new Transform(position, angle, scale, velocity);
     }
     
     public void Update()
